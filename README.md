@@ -15,3 +15,16 @@ sunbeam cluster bootstrap --accept-defaults
 ```bash
 sunbeam configure --accept-defaults --openrc demo-openrc
 ```
+
+# LAUNCHING AN INSTANCE 
+### In order to launch your first instance, execute the following command:
+```bash
+sunbeam launch ubuntu --name test
+```
+### output:
+/// Access instance with `ssh -i /home/ubuntu/.config/openstack/sunbeam ubuntu@10.20.20.16`
+### At this point the instance should be accessible over the SSH protocol. In order to connect to it, execute the command from the output:
+```bash
+ssh -i /home/ubuntu/.config/openstack/sunbeam ubuntu@10.20.20.16
+```
+
