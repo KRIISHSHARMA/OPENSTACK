@@ -27,4 +27,12 @@ sunbeam launch ubuntu --name test
 ```bash
 ssh -i /home/ubuntu/.config/openstack/sunbeam ubuntu@10.20.20.16
 ```
+### To get url of dashboard 
+```bash
+sunbeam dashboard-url
+```
+### To get password of "demo" user :
+```bash
+cat demo-openrc
+```
 
