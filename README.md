@@ -15,6 +15,10 @@ sunbeam cluster bootstrap --accept-defaults
 ```bash
 sunbeam configure --accept-defaults --openrc demo-openrc
 ```
+### The above command provides normal user credentials (file demo-openrc). Admin credentials can be obtained in this way (file admin-openrc):
+```bash
+sunbeam openrc > admin-openrc
+```
 
 # LAUNCHING AN INSTANCE 
 ### In order to launch your first instance, execute the following command:
