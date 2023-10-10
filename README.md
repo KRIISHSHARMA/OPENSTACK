@@ -1,42 +1,71 @@
 # INSTALLING OPENSTACK
-### In order to install OpenStack, execute the following command:
-``` bash
-sudo snap install openstack --edge
-```
-### In order to install all necessary dependencies, execute the following command:
-``` bash
-sunbeam prepare-node-script | bash -x && newgrp snap_daemon
-```
-### In order to bootstrap the cloud, execute the following command:
+## Step 1: Update and Upgrade the System
 ```bash
-sunbeam cluster bootstrap --accept-defaults
+apt update -y && apt upgrade -y
 ```
-### In order to configure the cloud with default options, execute the following command:
+## Step 2: Create Stack user and assign sudo priviledge
 ```bash
-sunbeam configure --accept-defaults --openrc demo-openrc
+sudo adduser -s /bin/bash -d /opt/stack -m stack
 ```
-### The above command provides normal user credentials (file demo-openrc). Admin credentials can be obtained in this way (file admin-openrc):
 ```bash
-sunbeam openrc > admin-openrc
+sudo chmod +x /opt/stack
 ```
+### Next, run the command below to assign sudo privileges to the user
+```bash
+echo "stack ALL=(ALL) NOPASSWD: ALL" | sudo tee /etc/sudoers.d/stack
+```
+## Step 3: Install git and download DevStack
+```bash
+su - stack
+```
+### Once you have successfully created the user ‘stack’ and assigned sudo privileges, switch to the user using the command.
+```bash
+sudo apt install git -y
+```
+### Using git, clone devstack’s git repository as shown.
+```bash
+git clone https://git.openstack.org/openstack-dev/devstack
+```
+## Step 4: Create devstack configuration file
+### In this step, navigate to the devstack directory.
+```bash
+cd devstack
+```
+### Then create a local.conf configuration file.
+```bash
+vim local.conf
+```
+### Paste the following content
+```bash
+[[local|localrc]]
+# Password for KeyStone, Database, RabbitMQ and Service
+ADMIN_PASSWORD=StrongAdminSecret
+DATABASE_PASSWORD=$ADMIN_PASSWORD
+RABBIT_PASSWORD=$ADMIN_PASSWORD
+SERVICE_PASSWORD=$ADMIN_PASSWORD
+# Host IP - get your Server/VM IP address from ip addr command
+HOST_IP=10.208.0.10
+```
+#### Save and exit the text editor. NOTE:
 
-# LAUNCHING AN INSTANCE 
-### In order to launch your first instance, execute the following command:
+The ADMIN_PASSWORD is the password that you will use to log in to the OpenStack login page. The default username is admin.
+The HOST_IP is your system’s IP address that is obtained by running ifconfig or ip addr commands.
+## Step 5: Install OpenStack with Devstack
+### To commence the installation of OpenStack on Ubuntu 22.04, run the script below contained in devstack directory.
 ```bash
-sunbeam launch ubuntu --name test
+./stack.sh
 ```
-### output:
-/// Access instance with `ssh -i /home/ubuntu/.config/openstack/sunbeam ubuntu@10.20.20.16`
-### At this point the instance should be accessible over the SSH protocol. In order to connect to it, execute the command from the output:
-```bash
-ssh -i /home/ubuntu/.config/openstack/sunbeam ubuntu@10.20.20.16
-```
-### To get url of dashboard 
-```bash
-sunbeam dashboard-url
-```
-### To get password of "demo" user :
-```bash
-cat demo-openrc
-```
+#### The following features will be installed:
+
+Horizon — OpenStack Dashboard
+Nova — Compute Service
+Glance — Image Service
+Neutron — Network Service
+Keystone — Identity Service
+Cinder — Block Storage Service
+Placement — Placement API
+The deployment takes about 10 to 15 minutes depending on the speed of your system and internet connection. In our case, it took roughly 12 minutes. At the very end, you should see output similar to what we have below.
+
+## Step 6: Accessing OpenStack on a web browser
+#### To access OpenStack via a web browser browse your Ubuntu’s IP address as shown. https://server-ip/dashboard This directs you to a login page as shown.
 
