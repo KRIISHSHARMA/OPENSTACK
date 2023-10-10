@@ -7,7 +7,7 @@ apt update -y && apt upgrade -y
 ```
 ## Step 2: Create Stack user and assign sudo priviledge
 ```bash
-sudo adduser -s /bin/bash -d /opt/stack -m stack
+sudo useradd -s /bin/bash -d /opt/stack -m stack
 ```
 ```bash
 sudo chmod +x /opt/stack
