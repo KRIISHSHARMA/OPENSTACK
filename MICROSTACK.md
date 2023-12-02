@@ -43,3 +43,36 @@
 
 - As you can see its not active yet so exit vm and log back in
 ![Screenshot from 2023-12-02 10-04-55](https://github.com/KRIISHSHARMA/OPENSTACK/assets/86760658/22417f2c-abe8-446c-830d-029957a2e88e)
+
+8. installing juju
+   ``` bash
+    sudo snap install juju --channel 3.1/stable
+   ```
+9. install microstack from sunbeam channel
+    ``` bash
+    sudo snap install microstack --channel sunbeam/beta
+    ```
+10. installing openstack hypervisor packages which have pieces that will be running outside k8s
+    ``` bash
+    sudo snap install openstack-hypervisor --channel xena/beta
+    ```
+11. installing openstackclients
+    ``` bash
+    sudo snap install openstackclients --channel xena/beta
+    ```
+12. will need an ssh key to use to enter the vms so will create one rn
+    ``` bash
+    ssh-keygen -t rsa -q -f "$HOME/.ssh/id_rsa" -N ""
+    ```
+13. bootstraping
+    ``` bash
+    microstack bootstrap
+    ``` 
+15. to see the ineraction between juju and k8s while bootstraping
+    ``` bash
+    watch --color -- juju status --color -m openstack
+    ```
+    ``` bash
+    watch microk8s.kubectl get all -A
+    ```
+    
