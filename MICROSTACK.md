@@ -7,7 +7,7 @@
   1. [video source](https://www.youtube.com/watch?v=kuhEtsknpn4)
   2. [text resource](https://ubuntu.com/tutorials/install-openstack-on-your-workstation-and-launch-your-first-instance#1-overview)
   3. [microstack tutorial](https://ubuntu.com/openstack/tutorials)
-- my network is 172.31.80.0/20
+- my network is 172.31.80.0/20 (ip route list)
   - gateway is 172.31.80.1
   - static ips from .10 to .19 for metallb (exposing OS controlplane)
   - static ips from .20 to .59 for openstack(routers etc)
