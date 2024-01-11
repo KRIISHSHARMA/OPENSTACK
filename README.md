@@ -1,6 +1,6 @@
 # INSTALLING OPENSTACK(using devstack)
 ### WHAT IS OPENSTACK 
--OpenStack is a free, open standard cloud computing platform. It is mostly deployed as infrastructure-as-a-service in both public and private clouds where virtual servers and other resources are made available to users
+- OpenStack is a free, open standard cloud computing platform. It is mostly deployed as infrastructure-as-a-service in both public and private clouds where virtual servers and other resources are made available to users
 ## Step 1: Update and Upgrade the System
 ```bash
 apt update -y && apt upgrade -y
